@@ -1,110 +1,163 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 export default function Hero() {
-  const scrollToForms = () => {
-    document.getElementById('lead-forms')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const properties = [
+    {
+      address: '1837 Brewster Avenue, Redwood City',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop'
+    },
+    {
+      address: '3467 Waverley Street, Palo Alto',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=800&fit=crop'
+    },
+    {
+      address: '3165 Morris Drive, Palo Alto',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1723110994499-df46435aa4b3?q=80&w=1479&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    },
+    {
+      address: '653 Wildwood Lane, Palo Alto',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&h=800&fit=crop'
+    },
+    {
+      address: '5 Oak Forest Court, Portola Valley',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&h=800&fit=crop'
+    },
+    {
+      address: '188 Fair Oaks Lane, Atherton',
+      status: 'SOLD!',
+      image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=800&fit=crop'
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % properties.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [properties.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-blue-900 via-blue-800 to-red-900 text-white overflow-hidden pt-20">
-      {/* Animated background patterns */}
-      <div className="absolute inset-0">
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,0.3),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.3),transparent_50%)]"></div>
-        
-        {/* Stars scattered */}
-        <div className="absolute top-20 left-[10%] text-white text-4xl animate-pulse opacity-80" style={{filter: 'brightness(0) invert(1)'}}>⭐</div>
-        <div className="absolute top-40 right-[15%] text-white text-3xl animate-pulse opacity-80" style={{animationDelay: '0.5s', filter: 'brightness(0) invert(1)'}}>⭐</div>
-        <div className="absolute bottom-40 left-[20%] text-white text-5xl animate-pulse opacity-80" style={{animationDelay: '1s', filter: 'brightness(0) invert(1)'}}>⭐</div>
-        <div className="absolute top-60 left-[45%] text-white text-2xl animate-pulse opacity-80" style={{animationDelay: '1.5s', filter: 'brightness(0) invert(1)'}}>⭐</div>
-        <div className="absolute bottom-20 right-[25%] text-white text-4xl animate-pulse opacity-80" style={{animationDelay: '2s', filter: 'brightness(0) invert(1)'}}>⭐</div>
-        <div className="absolute top-[30%] right-[40%] text-white text-3xl animate-pulse opacity-80" style={{animationDelay: '0.8s', filter: 'brightness(0) invert(1)'}}>⭐</div>
-        
-        {/* Subtle stripes */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-red-600"></div>
-        <div className="absolute top-2 left-0 right-0 h-2 bg-white opacity-90"></div>
-        <div className="absolute top-4 left-0 right-0 h-2 bg-red-600"></div>
+    <section className="relative bg-white">
+      {/* Property Carousel */}
+      <div className="relative h-[600px] overflow-hidden">
+        {properties.map((property, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${property.image})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-green-900/60 via-green-800/40 to-amber-900/60"></div>
+            </div>
+            <div className="relative h-full flex items-center justify-center">
+              <div className="text-center text-white px-4">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+                  {property.address}
+                </h1>
+                <p className="text-2xl md:text-4xl font-semibold drop-shadow-lg bg-green-800/80 px-6 py-3 rounded-lg inline-block">
+                  {property.status}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Navigation Dots */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {properties.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentSlide ? 'bg-white' : 'bg-white/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + properties.length) % properties.length)}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-green-800 p-3 rounded-full transition-all shadow-lg"
+          aria-label="Previous slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % properties.length)}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-green-800 p-3 rounded-full transition-all shadow-lg"
+          aria-label="Next slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          {/* Badge */}
-          <div className="mb-8 animate-fade-in">
-            <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-3 rounded-full text-sm font-bold tracking-wide uppercase shadow-xl border border-white/30">
-              <span className="text-2xl">🇺🇸</span>
-              Your Trusted Real Estate Partner
-            </span>
-          </div>
-          
-          {/* Main Heading */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight animate-fade-in-up">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white drop-shadow-2xl">
-            Helping You Make the Right Move
-            </span>
-          </h1>
-          
-          <p className="text-xl sm:text-2xl md:text-3xl mb-12 max-w-4xl mx-auto text-blue-50 leading-relaxed font-light">
-            Expert guidance for buyers and sellers. 
-          </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <button 
-              onClick={scrollToForms}
-              className="group relative w-full sm:w-auto overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-red-600 rounded-2xl"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-red-400 to-red-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative flex items-center justify-center gap-3 px-10 py-5 text-white font-bold text-xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
-                <span className="text-2xl">📅</span>
-                <span>Book a Showing</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </button>
-            
-            <button 
-              onClick={scrollToForms}
-              className="group relative w-full sm:w-auto overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-white rounded-2xl"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-red-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative flex items-center justify-center gap-3 px-10 py-5 text-blue-900 font-bold text-xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
-                <span className="text-2xl">🏠</span>
-                <span>Free Home Valuation</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </button>
-          </div>
+      {/* Get to Know Our Approach Section */}
+      <div className="bg-white py-16 border-y-2 border-green-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="relative overflow-hidden rounded-lg shadow-xl group cursor-pointer">
+              <a href="/about/" className="block">
+                <div className="relative h-64 md:h-80">
+                  <img 
+                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Real estate approach"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 via-green-800/25 to-transparent"></div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                    Get to Know Our Approach
+                  </h2>
+                  <span className="inline-block px-6 py-2 bg-amber-900 text-white font-semibold hover:bg-amber-800 transition-colors rounded-lg">
+                    Learn more
+                  </span>
+                </div>
+              </a>
+            </div>
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl transform hover:scale-105 transition-all">
-              <div className="text-4xl sm:text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-400 mb-2">500+</div>
-              <div className="text-sm sm:text-base text-blue-100 font-semibold">Homes Sold</div>
-            </div>
-            <div className="text-center bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl transform hover:scale-105 transition-all">
-              <div className="text-4xl sm:text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-400 mb-2">98%</div>
-              <div className="text-sm sm:text-base text-blue-100 font-semibold">Satisfaction</div>
-            </div>
-            <div className="text-center bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl transform hover:scale-105 transition-all">
-              <div className="text-4xl sm:text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-400 mb-2">15+</div>
-              <div className="text-sm sm:text-base text-blue-100 font-semibold">Years Experience</div>
+            {/* List With Us Section */}
+            <div className="relative overflow-hidden rounded-lg shadow-xl group cursor-pointer">
+              <a href="/sellers/" className="block">
+                <div className="relative h-64 md:h-80">
+                  <img 
+                    src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="List your property"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 via-green-800/25 to-transparent"></div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                    List With Us for Only 3% Commission
+                  </h2>
+                  <span className="inline-block px-6 py-2 bg-amber-900 text-white font-semibold hover:bg-amber-800 transition-colors rounded-lg">
+                    Learn how
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="text-white text-4xl opacity-60">↓</div>
-      </div>
-
-      {/* Wave divider */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 80C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-        </svg>
       </div>
     </section>
   );

@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
-import LeadForms from '@/components/LeadForms';
 import SocialProof from '@/components/SocialProof';
 import CallToAction from '@/components/CallToAction';
+import LeadForms from '@/components/LeadForms';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -15,9 +14,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Features />
-      <LeadForms />
       <SocialProof />
       <CallToAction />
+      <LeadForms />
       <Footer />
     </div>
   );

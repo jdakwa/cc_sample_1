@@ -4,151 +4,140 @@ import { useState } from 'react';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const scrollToForms = () => {
-    document.getElementById('lead-forms')?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
-  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🏠</span>
-            <span className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-red-600">
-              Realty Integrity and Funding
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <a 
-              href="#lead-forms" 
-              onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-              className="text-gray-700 hover:text-blue-600 font-semibold transition-colors"
-            >
-              Buy
+    <>
+      {/* Top Bar */}
+      <div className="bg-green-900 text-white text-sm py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-end items-center gap-6">
+            <a href="tel:+15551234567" className="hover:text-green-200 transition-colors">
+              Tel: 555.123.4567
             </a>
-            <a 
-              href="#lead-forms" 
-              onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-              className="text-gray-700 hover:text-red-600 font-semibold transition-colors"
-            >
-              Sell
-            </a>
-            <a 
-              href="#lead-forms" 
-              onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-              className="text-gray-700 hover:text-blue-600 font-semibold transition-colors"
-            >
-              Services
-            </a>
-            <a 
-              href="#lead-forms" 
-              onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-              className="text-gray-700 hover:text-blue-600 font-semibold transition-colors"
-            >
-              About
+            <a href="/contact/" className="hover:text-green-200 transition-colors">
+              Contact Us
             </a>
           </div>
-
-          {/* Call and Mail Buttons */}
-          <div className="hidden md:flex items-center gap-4">
-            <a 
-              href="tel:+1-661-878-5569"
-              className="group flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
-            >
-              <span className="text-xl">📞</span>
-              <span className="hidden lg:inline">(661) 878-5569</span>
-              <span className="lg:hidden">Call</span>
-            </a>
-            <a 
-              href="mailto:samdakwa@gmail.com"
-              className="group flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
-            >
-              <span className="text-xl">✉️</span>
-              <span className="hidden lg:inline">Email Us</span>
-              <span className="lg:hidden">Email</span>
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <svg 
-              className="w-6 h-6" 
-              fill="none" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              {isMenuOpen ? (
-                <path d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden pb-6 border-t border-gray-200 mt-4 pt-4">
-            <div className="flex flex-col gap-4">
-              <a 
-                href="#lead-forms" 
-                onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-                className="text-gray-700 hover:text-blue-600 font-semibold py-2 transition-colors"
-              >
-                Buy
+      {/* Main Navigation */}
+      <nav className="bg-white shadow-md sticky top-0 z-50 border-b-2 border-amber-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🌲</span>
+              <a href="/" className="text-2xl font-bold text-amber-900 hover:text-amber-800 transition-colors">
+                Evergreen Realty
               </a>
-              <a 
-                href="#lead-forms" 
-                onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-                className="text-gray-700 hover:text-red-600 font-semibold py-2 transition-colors"
-              >
-                Sell
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8">
+              <a href="/properties/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm transition-colors">
+                PROPERTIES
               </a>
-              <a 
-                href="#lead-forms" 
-                onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-                className="text-gray-700 hover:text-blue-600 font-semibold py-2 transition-colors"
-              >
-                Services
+              <a href="/sellers/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm transition-colors">
+                SELLERS
               </a>
-              <a 
-                href="#lead-forms" 
-                onClick={(e) => { e.preventDefault(); scrollToForms(); }}
-                className="text-gray-700 hover:text-blue-600 font-semibold py-2 transition-colors"
-              >
+              <a href="/buyers/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm transition-colors">
+                BUYERS
+              </a>
+              <a href="/neighborhoods/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm transition-colors">
+                NEIGHBORHOODS
+              </a>
+              <a href="/news-events/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm transition-colors">
+                NEWS
+              </a>
+              <a href="/about/" className="text-gray-700 hover:text-green-700 font-semibold text-sm transition-colors">
                 About
               </a>
-              <div className="flex flex-col gap-3 pt-4 border-t border-gray-200">
+              <div className="flex items-center gap-3 ml-4 pl-4 border-l-2 border-green-200">
                 <a 
-                  href="tel:+1-555-123-4567"
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-md"
+                  href="tel:+15551234567" 
+                  className="flex items-center gap-2 px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors text-sm font-semibold"
                 >
-                  <span className="text-xl">📞</span>
-                  <span>(555) 123-4567</span>
+                  <span>📞</span>
+                  <span>Call</span>
                 </a>
                 <a 
-                  href="mailto:info@realtyintegrity.com"
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-md"
+                  href="mailto:info@evergreenrealty.com" 
+                  className="flex items-center gap-2 px-4 py-2 bg-amber-900 text-white rounded-lg hover:bg-amber-800 transition-colors text-sm font-semibold"
                 >
-                  <span className="text-xl">✉️</span>
-                  <span>Email Us</span>
+                  <span>✉️</span>
+                  <span>Email</span>
                 </a>
               </div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-green-50 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <svg 
+                className="w-6 h-6" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                {isMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="lg:hidden pb-6 border-t border-green-100 mt-4 pt-4">
+              <div className="flex flex-col gap-4">
+                <a href="/properties/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm py-2 transition-colors">
+                  PROPERTIES
+                </a>
+                <a href="/sellers/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm py-2 transition-colors">
+                  SELLERS
+                </a>
+                <a href="/buyers/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm py-2 transition-colors">
+                  BUYERS
+                </a>
+                <a href="/neighborhoods/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm py-2 transition-colors">
+                  NEIGHBORHOODS
+                </a>
+                <a href="/news-events/" className="text-gray-700 hover:text-green-700 font-semibold uppercase text-sm py-2 transition-colors">
+                  NEWS
+                </a>
+                <a href="/about/" className="text-gray-700 hover:text-green-700 font-semibold text-sm py-2 transition-colors">
+                  About
+                </a>
+                <div className="flex flex-col gap-3 pt-4 border-t border-green-200">
+                  <a 
+                    href="tel:+15551234567" 
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-colors font-semibold"
+                  >
+                    <span>📞</span>
+                    <span>Call: 555.123.4567</span>
+                  </a>
+                  <a 
+                    href="mailto:info@evergreenrealty.com" 
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-amber-900 text-white rounded-lg hover:bg-amber-800 transition-colors font-semibold"
+                  >
+                    <span>✉️</span>
+                    <span>Email Us</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+    </>
   );
 }
