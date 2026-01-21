@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Realty Integrity and Funding - Find Your Dream Home",
+  title: "Evergreen Realty - Find Your Dream Home",
   description: "Expert real estate services for buyers and sellers. Book a showing or get a free home valuation today. Trusted real estate partner with 15+ years of experience.",
 };
 

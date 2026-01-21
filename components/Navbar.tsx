@@ -29,7 +29,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <span className="text-3xl">🌲</span>
               <a href="/" className="text-2xl font-bold text-amber-900 hover:text-amber-800 transition-colors">
-                Realty Integrity and Funding
+                Evergreen Realty
               </a>
             </div>
 
